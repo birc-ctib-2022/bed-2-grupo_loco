@@ -29,18 +29,31 @@ def read_bed_file(f: TextIO) -> list[BedLine]:
     return res
 
 
+
 def merge(f1: list[BedLine], f2: list[BedLine], outfile: TextIO) -> None:
     """Merge features and write them to outfile."""
     # FIXME: I have work to do here!
+    # her skal jeg loope igennem chrom start like so f1[i][0] and f2[j][0]
     i,j = 0,0
     bed_merged = []
     while i < len(f1) or j < len(f2):
-        if i < len(f1) and (j >= len(f2) or f1[i] <= f2[j]):
+        if f1[i][0] < f2[j][0]:
             bed_merged.append(f1[i])
             i += 1
-        else:
+        else: # f2[j] < f1[i]
             bed_merged.append(f2[j])
-    return bed_merged
+            j += 1
+
+# Logically written, so i can remember what I am doing   
+#    if f1[i] == len(f1[i]):
+#        bed_merged += f2[j::]
+#    else:
+#        bed_merged += f1[i::]
+
+    # the short version
+    bed_merged += f1[i::] + f2[j::]
+    print_line(bed_merged, outfile)
+    return outfile
 
 
 
