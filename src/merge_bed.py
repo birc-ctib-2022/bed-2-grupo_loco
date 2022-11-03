@@ -34,21 +34,18 @@ def merge(f1: list[BedLine], f2: list[BedLine], outfile: TextIO) -> None:
     """Merge features and write them to outfile."""
     # FIXME: I have work to do here!
     i,j = 0,0
-    bed_merged = []
     while i < len(f1) and j < len(f2):
         if f1[i].chrom <= f2[j].chrom:
             if f1[i].chrom_start < f2[j].chrom_start:
-                bed_merged.append(f1[i])
+                print_line(f1[i],outfile)
                 i += 1
             else:
-                bed_merged.append(f2[j])
+                print_line(f2[j],outfile)
                 j += 1
         else: # f2[j] < f1[i]
-            bed_merged.append(f2[j])
+            print_line(f2[j],outfile)
             j += 1
-    bed_merged += f1[i::] + f2[j::]
-    print_line(bed_merged, outfile)
-    
+    print_line(f1[i::] + f2[j::],outfile)   
     return outfile
 
             
