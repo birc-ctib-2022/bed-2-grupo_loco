@@ -6,8 +6,11 @@ from operator import index  # we use this module for option parsing. See main fo
 import sys
 from typing import TextIO
 from bed import (
-    read_bed_file, print_line, Table,
+    read_bed_file, print_line, Table
 )
+
+def chromstart(bedline):
+    return bedline[1]
 
 def chromstart(bedline):
     return bedline[1]
@@ -21,6 +24,7 @@ def sort_file(table: Table) -> None:
         # and then updatte the table
         # FIXME: sort `features`
         table[chrom] = features  # features should be sorted here
+        features.sort(key = chromstart)
         features.sort(key=chromstart)
 
 
