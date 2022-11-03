@@ -8,8 +8,8 @@ from bed import (
     read_bed_file, print_line, Table, parse_line
 )
 
-def chromstart(bedline):
-    return bedline[1]
+#def chromstart(bedline):
+#    return bedline[1]
 
 
 def sort_file(table: Table) -> None:
@@ -19,8 +19,9 @@ def sort_file(table: Table) -> None:
         # You need to sort `features` with respect to chrom_start
         # and then updatte the table
         # FIXME: sort `features`
+        features.sort()
         table[chrom] = features  # features should be sorted here
-        features.sort(key = chromstart)
+        
 
 
 def print_file(table: Table, outfile: TextIO) -> None:
