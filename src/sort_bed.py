@@ -1,12 +1,16 @@
 """Tool for cleaning up a BED file."""
 
-import argparse  # we use this module for option parsing. See main for details.
+import argparse
+from operator import index  # we use this module for option parsing. See main for details.
 
 import sys
 from typing import TextIO
 from bed import (
-    read_bed_file, print_line, Table
+    read_bed_file, print_line, Table,
 )
+
+def chromstart(bedline):
+    return bedline[1]
 
 
 def sort_file(table: Table) -> None:
@@ -17,6 +21,8 @@ def sort_file(table: Table) -> None:
         # and then updatte the table
         # FIXME: sort `features`
         table[chrom] = features  # features should be sorted here
+        features.sort(key=chromstart)
+
 
 
 def print_file(table: Table, outfile: TextIO) -> None:

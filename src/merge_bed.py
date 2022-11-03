@@ -3,6 +3,7 @@
 import argparse  # we use this module for option parsing. See main for details.
 
 import sys
+from tkinter import Y
 from typing import TextIO
 from bed import (
     parse_line, print_line, BedLine
@@ -32,6 +33,21 @@ def read_bed_file(f: TextIO) -> list[BedLine]:
 def merge(f1: list[BedLine], f2: list[BedLine], outfile: TextIO) -> None:
     """Merge features and write them to outfile."""
     # FIXME: I have work to do here!
+    bothArrays = f1, f2
+    outputlist = []
+    for array in bothArrays:
+        for element in array :
+            if element not in outputlist :
+                outputlist.append(element)
+    return outputlist
+        
+
+            
+
+
+        
+
+
 
 
 def main() -> None:
@@ -49,8 +65,10 @@ def main() -> None:
     args = argparser.parse_args()
 
     # With all the options handled, we just need to do the real work
+    
     features1 = read_bed_file(args.f1)
     features2 = read_bed_file(args.f2)
+    
     merge(features1, features2, args.outfile)
 
 
