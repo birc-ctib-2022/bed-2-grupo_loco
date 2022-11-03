@@ -3,6 +3,7 @@
 import argparse  # we use this module for option parsing. See main for details.
 
 import sys
+from tkinter import Y
 from typing import TextIO
 from bed import (
     parse_line, print_line, BedLine
@@ -29,9 +30,51 @@ def read_bed_file(f: TextIO) -> list[BedLine]:
     return res
 
 
+
 def merge(f1: list[BedLine], f2: list[BedLine], outfile: TextIO) -> None:
     """Merge features and write them to outfile."""
     # FIXME: I have work to do here!
+    # her skal jeg loope igennem chrom start like so f1[i][0] and f2[j][0]
+    i,j = 0,0
+    bed_merged = []
+    while i < len(f1) or j < len(f2):
+        if f1[i][0] <= f2[j][0]:
+            if f1[i][1] < f2[j][1]:
+                bed_merged.append(f1[i])
+                i += 1
+            else:
+                bed_merged.append(f2[j])
+                j += 1
+        else: # f2[j] < f1[i]
+            bed_merged.append(f2[j])
+            j += 1
+
+# Logically written, so i can remember what I am doing   
+#    if f1[i] == len(f1[i]):
+#        bed_merged += f2[j::]
+#    else:
+#        bed_merged += f1[i::]
+
+    # the short version
+    bed_merged += f1[i::] + f2[j::]
+    print_line(bed_merged, outfile)
+    return outfile
+
+    bothArrays = f1, f2
+    outputlist = []
+    for array in bothArrays:
+        for element in array :
+            if element not in outputlist :
+                outputlist.append(element)
+    return outputlist
+        
+
+            
+
+
+        
+
+
 
 
 def main() -> None:
@@ -49,8 +92,10 @@ def main() -> None:
     args = argparser.parse_args()
 
     # With all the options handled, we just need to do the real work
+    
     features1 = read_bed_file(args.f1)
     features2 = read_bed_file(args.f2)
+    
     merge(features1, features2, args.outfile)
 
 

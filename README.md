@@ -60,7 +60,12 @@ Once you have implemented a lower bound search for the start of the range, imple
 
 *How do you use binary search to find the lower bound of a number? How did you have to modify the binary search algorithm?*
 
+We search with binary splits to iterate outward from the middle value to find value v. If the middle value x[mid] != v then we iterate the middle value 1 towards v, and set this middle value to high or low depending on whether x[mid] is higher than or lower than v. We repeat this until we hit the value v with the binary splits, and then we keep moving our lower bound such that our high and low value will meet at the first v value found in the sorted list.
+ 
 *Would anything be more difficult if the features covered ranges instead of single nucleotides (like real BED files)? What could go wrong, if anything?*
+
+
 
 *We wrote a tool for merging two BED files, but what if we had a bunch of them? What would the complexity be if we merged them in, one at a time? What would the complexity be if we merged all of the files at the same time?*
 
+If we merge them one by one and we describe number of bedlines as m and the length of the bedlines as n, then we compare each bedline with eachother, and iterate through the lenght to merge them such that when compared one by one we get O(n*m). If comparing all the bedlines at once then we still have to compare all the bedlines at once such that we still compare m bedlines iterating over n, giving the same O(n*m)
