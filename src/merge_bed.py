@@ -35,7 +35,7 @@ def merge(f1: list[BedLine], f2: list[BedLine], outfile: TextIO) -> None:
     # FIXME: I have work to do here!
     i,j = 0,0
     bed_merged = []
-    while i < len(f1) or j < len(f2):
+    while i < len(f1) and j < len(f2):
         if f1[i].chrom <= f2[j].chrom:
             if f1[i].chrom_start < f2[j].chrom_start:
                 bed_merged.append(f1[i])
