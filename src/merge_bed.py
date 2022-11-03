@@ -37,9 +37,13 @@ def merge(f1: list[BedLine], f2: list[BedLine], outfile: TextIO) -> None:
     i,j = 0,0
     bed_merged = []
     while i < len(f1) or j < len(f2):
-        if f1[i][0] < f2[j][0]:
-            bed_merged.append(f1[i])
-            i += 1
+        if f1[i][0] <= f2[j][0]:
+            if f1[i][1] < f2[j][1]:
+                bed_merged.append(f1[i])
+                i += 1
+            else:
+                bed_merged.append(f2[j])
+                j += 1
         else: # f2[j] < f1[i]
             bed_merged.append(f2[j])
             j += 1
