@@ -64,7 +64,7 @@ We search with binary splits to iterate outward from the middle value to find va
  
 *Would anything be more difficult if the features covered ranges instead of single nucleotides (like real BED files)? What could go wrong, if anything?*
 
-
+Yes it would make it more difficult. It would mean that the present comparison of only chrom index and chrom start would not nr sufficient for sorting the chromosomes. Overlaps in chrom 'start' and 'end' interval would occur. If we wanted a completely sorted and merged outfile we would have to take both chrom 'start' and chrom 'end' into account in the merging.
 
 *We wrote a tool for merging two BED files, but what if we had a bunch of them? What would the complexity be if we merged them in, one at a time? What would the complexity be if we merged all of the files at the same time?*
 

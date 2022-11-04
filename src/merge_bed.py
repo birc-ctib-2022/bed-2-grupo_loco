@@ -61,12 +61,13 @@ def merge(f1: list[BedLine], f2: list[BedLine], outfile: TextIO) -> None:
 #        else:
 #            bed_merged.append(f2[j])
 #            j += 1
-
+    # the elegant way
+    bed_merged.extend(f1[i:] + f2[j:])
 # Logically written, so i can remember what I am doing   
-    if i < len(f1):
-        bed_merged.append(f1[i::]) 
-    else:
-        bed_merged.append(f2[j::])
+ #   if i < len(f1):
+ #       bed_merged.extend(f1[i::]) 
+ #   else:
+ #       bed_merged.extend(f2[j::])
 
 
 #       bed_merged += f1[i::] + f2[j::]
